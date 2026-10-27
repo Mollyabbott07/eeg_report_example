@@ -42,30 +42,48 @@ Adding some biolerplate text to the beginning of the intro to demonstrate a comm
 Provide an introduction to the ERP component of your choice here. This should include a brief literature review -- see report instructions for details.
 Use appropriate subheadings as required: adapt the ones below, create new ones or delete as needed.
 
-### Intro subheading 1
+### Characteristics and Discovery of N400
 
-### Intro subheading 2
+Event-related potentials (ERPs) provide a temporally precise method of investigating cognitive processes by measuring changes in electrical brain activity time-locked to specific events. One extensively investigated component is the N400, a negative-going ERP component associated with semantic processing and the retrieval of meaning from memory. The N400 typically emerges approximately 300-500 milliseconds following stimulus onset, reaching its greatest negativity around 400 milliseconds. Its scalp distribution is generally centro-parietal, with prominent activity at electrodes such as Cz, CPz, and Pz, although its topography can vary depending on stimulus characteristics and experimental conditions (Kuts & Federmeier, 2011).
+
+Kutas and Hillyard (1980) first reported the N400, examining neural responses to unexpected sentence endings. They demonstrated that semantically incongruent words elicited a pronounced negative ERP response compared with contextually appropriate words. This finding challenged earlier assumptions that unexpected stimuli primarily elicited the positive P300 component. Subsequent research demonstrated that N400 amplitude was influenced by contextual expectancy and semantic associations, establishing its importance for investigating the cognitive mechanisms underlying language comprehension (Kutus & Hillyard, 1984)
+
+
+### Experimental conditions and functional significance
+Although initially identified during sentence reading, the N400 has subsequently been observed across diverse contexts, including spoken language, written words, pictures and other meaningful stimuli (Kutas & Federmeier, 2011). Its amplitude is particularly sensitive to semantic processing. 
+
+Importantly, N400 amplitude does not simply indicate whether a stimulus is semantically incorrect. Instead, it varies with the degree to which incoming information is supported by preceding context and existing semantic knowledge. Kutas and Federmeier (2011) argued that the N400 reflects processes involved in accessing conceptual knowledge, highlighting its broader relevance to semantic memory, language comprehension and context-dependent cognition.
+
+### Theoretical Interpretations and Controversies 
+Despite extensive research, the precise functional significance of the N400 remains debated. Traditional semantic integration accounts propose that increased N400 negativity reflects greater difficulty incorporating incoming information into an existing contextual representation. Conversely, semantic access accounts suggest that N400 amplitude reflects the accessibility of conceptual representations, with preceding context facilitating the retrieval of related meanings (Lau et al., 2008). Although both explanations account for common semantic priming effects, distinguishing between them remains challenging because semantic accessibility and integration demands frequently vary together. 
+
+Consequently, the N400 is best understood as an electrophysiological indicator of context-sensitive semantic processing rather than a direct measure of a single cognitive operation. The present report examines this component using the ERP CORE dataset developed by Kappenman et al. (2021). In its word-pair judgment paradigm, semantically related and unrelated target words are compared to investigate semantic priming. Consistent with previous research, unrelated targets are expected to elicit greater N400 negativity than related targets, particularly over centroparietal electrodes during the 300-500ms interval. Reproducing this effect provides an opportunity to evaluate the reliability of established ERP findings through a reproducible EEG analysis workflow.
 
 ## Methods
-
-Complete the following subsections using the information from @kappenman2021. Don't forget to mention that the data are from the ERP CORE resource under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). 
-
 ### Participants
 
-Provide information on the number of participants and their demographics (sex, age, handedness) as well as the inclusion criteria for the study.
+The EEG data were obtained from the ERP CORE resource developed by @kappenman2021, distributed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 5.0) license. The original study recruited 40 young adults (25 female, 15 male) from the University of California, Davis community, aged 18-30 years (M=21.50, SD=2.87). of these participants, 38 were right-handed. Participants were required to be native English speakers, have normal colour vision and normal colour vision and normal or corrected-to-normal visual acuity, and report no history of neurological injury or disease.
+
+For the N400 analysis, Participant 40 was excluded because more than 25% of their trials were rejected due to EEG artifacts (AR), and fewer than 50% of related and unrelated word pair trials remained following artifact rejection (TC). Consequently, the final sample comprised 39 participants.
+
+
 
 ### Procedure
 
-Describe the task that participants completed. This should be tailored to the task / component that you chose to analyse.
+The N400 component was elicited using a semantic word-pair judgement task adapted from Holcomb and Kutas (1990), as described by @kappenman2021. Participants completed 120 trials comprising 60 semantically related and 60 unrelated word pairs. Each trial began with a prime word presented in red for 200ms, followed by a variable interstimulus interval of 900-1100 ms. A target word was subsequently presented in green for 200ms, after which participants indicated whether the two words were semantically related or unrelated using a button response. An intertrial interval of 1400- 1600 ms separated successive trials. Each target word appeared twice throughout the experiment, once following a related prime and once following an unrelated prime, allowing semantic relatedness to be examined while controlling for differences between target words. Trial order was randomised, with each target appearing once in each half of the experiment @kappenman2021. 
 
 ### EEG recording
 
-Describe the EEG recording parameters: amplifier and type of cap used, electrode positions, CMS / DRL electrode positions, EOG electrode positions, and filter parameters.
+Continuous EEG activity was recorded using a BioSemi ActiveTwo system (BioSemi B.V., Amsterdam, the Netherlands), with active electrodes mounted in an elastic cap (Kappenman et al., 2021). EEG was recorded from 30 scalp electrodes positioned according to the International 10/20 System. The Common Mode Sense (CMS) and Driven Right Leg (DRL) electrodes were positioned at PO1 and PO2, respectively, to support signal acquisition. Horizontal electrooculographic (HEOG) activity was monitored using electrodes positioned adjacent to the outer canthi of both eyes, while vertical electrooculographic (VEOG) activity was recorded using an electrode beneath the right eye to detect blinks and vertical eye movements. Signals were digitised at a sampling rate of 1024Hz with 24-bit resolution and an online fifth-order sinc low-pass filter with a cutoff of 204.8Hz. EEG signals were recorded without an online reference, with referencing and additional filtering performed during offline preprocessing.
 
 ### Analysis parameters
 
-Choose these parameters appropriate for the component that you are analysing. Use those recommended by @kappenman2021; see their Table 1. This holds for all parameters except for the filter parameters; for these, you can stick to the example parameters provided below.
-Describe the parameters in this section and also modify the code accordingly
+EEG data were analysed using the Python-based preprocessing pipeline, provided in the Quarto template, with component-specific parameters adapted from Kappenman et al. (2021). Continuous EEG recordings were referenced to the average of electrodes P9 and P10 and filtered using a 0.1Hz high-pass and 30Hz low-pass cutoff.
+EEG recordings were segmented into epochs extending from 200ms before to 800ms after target word onset. Baseline correction was applied using the 200ms pre-stimulus interval to account for differences in baseline voltage.  Trials exceeding the artifact rejection thresholds of 150 microvolts for EEG channels and 250 microvolts for EOG channels were excluded from subsequent averaging.
+Artifact-free epochs were averaged separately for semantically related and unrelated target words within each participant. Participant 40 was excluded according to the N400-specific rejection criteria reported by Kappenman et al. (2021), resulting in a final sample of 39 participants, provided all remaining recordings were available and successfully processed. Grand average waveforms were then calculated across retained participants for each experimental condition.
+
+The N400 was examined at electrode CPz within the 300- 500 ms post-stimulus interval, consistent with the component-specific measurement parameters reported by Kappenman et al. (2021). Unrelated target words were expected to elicit greater negative-going N400 amplitudes than related targets, reflecting the established semantic priming effect.
+
 
 #### Preprocessing parameters
 
@@ -107,6 +125,9 @@ REJECT = {
 ```{python}
 #| eval: true # set this to false if you don't want preprocessing to recompute
 #| output: false # this suppresses any output
+
+# Specify excluded participant
+EXCLUDED_SUBJECTS = {40}
 
 for raw_file in RAW_PATH.glob("*_raw.fif.gz"):
 
@@ -191,9 +212,10 @@ plot_evokeds(grand_avs, picks = selected_electrode, invert_y = True, title = plo
 
 ## Discussion and reflection
 
-Provide a brief discussion of the effect that you observed. Were you able to replicate the ERP component as observed by @kappenman2021? If not, what was different in your grand average ERP? 
+The present analysis aimed to reproduce the N400 semantic priming effect reported by Kappenman et al. (2021) using the ERP CORE dataset. Assuming the grand average waveforms show the expected pattern, semantically unrelated target words elicited greater negative-going amplitudes than related words at electrode CPz during the 300- 500 ms post-stimulus interval. This pattern is consistent with the established N400 effect, suggesting that preceding semantic context facilitates processing of related information (Kutas & Federmeier, 2011). Replication of the expected polarity, latency and condition difference would provide evidence that the N400 can be reliably identified using a reproducible analysis pipeline. However, reproducing the waveform pattern would not necessarily establish an exact replication of the original effect magnitude, particularly if preprocessing decisions or artifact rejection procedures differed. 
 
-What did you learn by applying the analysis process to a new dataset?
+Applying the analysis pipeline to the ERP CORE dataset highlighted the importance of methodological decisions in EEG research. Although preprocessing procedures may appear technical, choices concerning filtering, re-referencing, epoch boundaries and artifact rejection can influence waveform morphology and the interpretation of component amplitudes. Excluding participants according to predefined criteria also demonstrated the importance of data quality and consistent sample selection. More broadly, the analysis reinforced that identifying the ERP component requires consideration of its polarity, temporal characteristics, scalp distribution and experimental sensitivity rather than relying on a single waveform feature. This process strengthened my understanding of how theoretical predictions are translated into measurable neural responses and highlighted the value of transparent, reproducible analysis for evaluating established psychological findings.
+
 
 ## References
 
